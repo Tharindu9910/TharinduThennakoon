@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { AnimatedBorderButton } from "../components/AnimatedBorderButton";
 import { mySkills } from "../constants";
+import { hero, medium, profile } from "../assets/images";
 
 const skills = [
   "React.js",
@@ -35,6 +36,7 @@ const skills = [
   "Figma",
   "Git",
   "GitHub Actions",
+  "BitBucket",
 ];
 
 export const Hero = () => {
@@ -43,7 +45,7 @@ export const Hero = () => {
       {/* Bg */}
       <div className="absolute inset-0">
         <img
-          src="/hero-bg.jpg"
+          src={hero}
           alt="Hero image"
           className="w-full h-full object-cover opacity-40"
         />
@@ -121,7 +123,7 @@ export const Hero = () => {
                 </a>
               ))}
               <a href="https://medium.com/@tharindutkt" target="_blank" className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"><img
-                  src="/medium-icon.svg"
+                  src={medium}
                   alt="medium"
                   className='w-[20px] object-contain'
                 /></a>
@@ -141,7 +143,7 @@ export const Hero = () => {
               />
               <div className="relative glass rounded-3xl p-2 glow-border">
                 <img
-                  src="/profile-pic.png"
+                  src={profile}
                   alt="Tharindu Thennakoon"
                   className="w-full aspect-[4/5] object-cover rounded-2xl"
                 />
@@ -200,7 +202,7 @@ export const Hero = () => {
               className="absolute right-0 top-0 bottom-0 w-32
              bg-gradient-to-l from-background to-transparent z-10"
             />
-            <div className="flex animate-marquee">
+            <div className="flex animate-marquee ">
               {[...skills, ...skills].map((skill, idx) => (
                 <div key={idx} className="flex-shrink-0 px-8 py-4">
                   <span className="text-xl font-semibold text-muted-foreground/50 hover:text-muted-foreground transition-colors">

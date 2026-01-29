@@ -1,6 +1,7 @@
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 import { ExternalLink,ArrowUpRight, Github , ChevronLeft, ChevronRight, Zap, Shield, Globe, Code } from 'lucide-react';
 import ProjectBlock from "./projects/ProjectBlock";
+import { api1, api2, api3, api4, businessInfo, businessList, chatss, dashboard1, dashboard2, edit, followers, getNotifiedAction, home, login, notificationLog, ss, tag, w1, w2 } from "../assets/images";
 
 const projects = [
   {
@@ -47,21 +48,21 @@ const myProjects = [
     tagline : "Personalized deals for users. Actionable insights for businesses.",
     description : "Epitoni is an promotions and customer engagement SaaS platform that connects users with personalized deals while providing businesses with actionable analytics and engagement tools. \nDeveloped using Flask microservices on GCP, secure JWT-based auth, Firestore + Neo4j data modeling, real-time notifications, and React-based analytical dashboards with responsive UIs.",
     screenshots: [
-      "/projects/login.png",
-      "/projects/home.png",
-      "/projects/businessList.png",
-      "/projects/businessInfo.png",
-      "/projects/edit.png",
-      "/projects/dashboard1.png",
-      "/projects/dashboard2.png",
-      "/projects/tag.png",
-      "/projects/followers.jpg",
-      "/projects/getNotifiedAction.jpg",
-      "/projects/notificationLog.jpg",
-      "/projects/api1.png",
-      "/projects/api2.jpg",
-      "/projects/api3.png",
-      "/projects/api4.jpg"
+      login,
+      home,
+      businessList,
+      businessInfo,
+      edit,
+      dashboard1,
+      dashboard2,
+      tag,
+      followers,
+      getNotifiedAction,
+      notificationLog,
+      api1,
+      api2,
+      api3,
+      api4
     ],
     technologies : [
       { name: "React", category: "Frontend" },
@@ -92,8 +93,8 @@ const myProjects = [
     tagline : "Conversational AI with task execution and multi-channel delivery.",
     description : "Neo-Ji is a cloud-native AI agent system that allows users to chat with an intelligent assistant in real time to retrieve information and execute actions such as bookings, reservations, and orders. \nThe platform implements WebSocket-based messaging on Google Cloud Run, extends conversations to WhatsApp using Meta APIs and webhooks, and includes a hosted embeddable chat widget for external integration. \nTo ensure scalability and responsiveness, the system uses Google Cloud Tasks for message queuing, optimized Firestore operations, and performance tuning that reduced end-to-end message processing.",
     screenshots: [
-      "/projects/widget/w2.jpg",
-      "/projects/widget/w1.jpg"
+      w2,
+      w1
     ],
     technologies : [
       { name: "React", category: "Frontend" },
@@ -123,7 +124,7 @@ const myProjects = [
     tagline : "Low-latency messaging with security, scalability, and team leadership.",
     description : "A real-time messaging backend built on MQTT (Mosquitto) to support low-latency, scalable chat communication. \nLed the application development and guided a small engineering team, defining system architecture, security standards, and development workflows. The system uses Mosquitto deployed on Google Compute Engine, with a Cloud Run–based microservice for message publishing, topic management, and API-driven interactions. \nImplemented token-based Firebase Authentication for secure client–broker communication and end-to-end encryption using hybrid cryptography (public–private key exchange combined with symmetric encryption) to ensure message confidentiality and user privacy.",
     screenshots: [
-      "/projects/chat/chatss.jpg"
+      chatss
     ],
     technologies : [
       { name: "FastAPI", category: "Backend" },
@@ -147,7 +148,7 @@ const myProjects = [
     tagline : "",
     description : "Developed a cross-platform music player using Flutter and Firebase, integrating Spotify and Deezer REST APIs for real-time streaming. Implemented clean architecture, user authentication, profile management, and a responsive UI for a scalable and maintainable mobile application.",
     screenshots: [
-      "/projects/music/ss.png"
+      ss
     ],
     technologies : [
       { name: "Flutter", category: "Frontend" },

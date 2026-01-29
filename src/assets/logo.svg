@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fffdfd;
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #1ea398;
+      }
+    </style>
+  </defs>
+  <path id="t" class="cls-1" d="M242.6,1030.79H380.714V401.37h219.3V271.69H23.3V401.37H242.6v629.42Z"/>
+  <path id="t-2" data-name="t" class="cls-2" d="M821.6,1030.79H959.714V401.37h219.3V271.69H602.3V401.37H821.6v629.42Z"/>
+</svg>

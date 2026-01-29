@@ -1,102 +1,109 @@
 
+import { css, html, javascript, typescript, tailwindcss, nextjs, react, redux, gsap, mui, express, mongodb, neo4j, nodejs, python, flutter, sass, git, github, docker, bitBucket } from "../assets/icons";
+
 export const mySkills = [
     {
-        imageUrl: '../icons/html.svg',
+        imageUrl: html,
         name: "HTML",
         type: "Frontend",
     },
     {
-        imageUrl: "../icons/css.svg",
+        imageUrl: css,
         name: "CSS",
         type: "Frontend",
     },
     {
-        imageUrl: '../icons/javascript.svg',
+        imageUrl: javascript,
         name: "JavaScript",
         type: "Frontend",
     },
     {
-        imageUrl: "../icons/typescript.svg",
+        imageUrl: typescript,
         name: "TypeScript",
         type: "Frontend",
     },
     {
-        imageUrl: '../icons/tailwindcss.svg',
+        imageUrl: tailwindcss,
         name: "Tailwind CSS",
         type: "Frontend",
     },
     {
-        imageUrl: '../icons/nextjs.svg',
+        imageUrl: nextjs,
         name: "Next.js",
         type: "Frontend",
     },
     {
-        imageUrl: '../icons/react.svg',
+        imageUrl: react,
         name: "React",
         type: "Frontend",
     },
     {
-        imageUrl: '../icons/redux.svg',
+        imageUrl: redux,
         name: "Redux",
         type: "State Management",
     },
     {
-        imageUrl: '../icons/gsap.svg',
+        imageUrl: gsap,
         name: "GSAP",
         type: "Animation",
     },
     {
-        imageUrl: '../icons/mui.svg',
+        imageUrl: mui,
         name: "Material-UI",
         type: "Frontend",
     },
     {
-        imageUrl: "../icons/express.svg",
+        imageUrl: express,
         name: "Express",
         type: "Backend",
     },
     {
-        imageUrl: '../icons/mongodb.svg',
+        imageUrl: mongodb,
         name: "MongoDB",
         type: "Database",
     },
     {
-        imageUrl: '../icons/neo4j-h.svg',
+        imageUrl: neo4j,
         name: "Neo4j",
         type: "Database",
     },
     {
-        imageUrl: '../icons/nodejs.svg',
+        imageUrl: nodejs,
         name: "Node.js",
         type: "Backend",
     },
     {
-        imageUrl: '../icons/python.svg',
+        imageUrl: python,
         name: "Python",
         type: "Language",
     },
     {
-        imageUrl: '../icons/flutter.svg',
+        imageUrl: flutter,
         name: "Flutter",
         type: "Mobile",
     },
     {
-        imageUrl: '../icons/sass.svg',
+        imageUrl: sass,
         name: "Sass",
         type: "Frontend",
     },
     {
-        imageUrl: "../icons/git.svg",
+        imageUrl: git,
         name: "Git",
         type: "Version Control",
     },
     {
-        imageUrl: '../icons/github.svg',
+        imageUrl: github,
         name: "GitHub",
         type: "Version Control",
     },
+    // {
+    //     imageUrl: bitBucket,
+    //     name: "BitBucket",
+    //     type: "Version Control",
+    // },
     {
-        imageUrl: '../icons/docker.svg',
+        imageUrl: docker,
         name: "Docker",
         type: "Tool",
     },
