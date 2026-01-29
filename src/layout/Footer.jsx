@@ -1,4 +1,5 @@
 import { Github, Linkedin, Twitter, Heart } from "lucide-react";
+import { medium } from "../assets/images";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/Tharindu9910", label: "GitHub" },
@@ -55,7 +56,7 @@ export const Footer = () => {
               </a>
             ))}
              <a href="https://medium.com/@tharindutkt" target="_blank" className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"><img
-                  src="/medium-icon.svg"
+                  src={medium}
                   alt="medium"
                   className='w-[20px] object-contain'
                 /></a>
