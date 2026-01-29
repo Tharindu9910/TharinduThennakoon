@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { ExternalLink, Github, ChevronLeft, ChevronRight, Zap, Shield, Globe, Code } from 'lucide-react';
 import { createPortal } from 'react-dom';
+import { memo } from 'react';
 
-const ProjectBlock = ({
+const ProjectBlock = memo(({
   title,
   tagline="", 
   description ,
@@ -290,7 +291,7 @@ const ProjectBlock = ({
       </div>
     </div>
   );
-};
+});
 
 export default ProjectBlock
 

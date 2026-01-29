@@ -47,7 +47,7 @@ export const About = () => {
               </span>
             </h2>
 
-            <div className="space-y-4 text-muted-foreground animate-fade-in animation-delay-200">
+            <div className="space-y-4 text-sm text-muted-foreground  animate-fade-in animation-delay-200">
               <p>
               I'm a Full Stack Developer with over 2 years of professional experience building 
               production-grade applications across web, mobile, and cloud platforms. At EBridge Solutions, 

@@ -1,13 +1,13 @@
-import hero from "@/assets/hero-bg.jpg";
+import hero from "@/assets/hero-bg.avif";
 import logo from "@/assets/logo.svg";
 import medium from "@/assets/medium-icon.svg";
-import profile from "@/assets/profile-pic.png";
-import chatss from "@/assets/projects/chat/chatss.jpg";
-import ss from "@/assets/projects/music/ss.png";
-import w1 from "@/assets/projects/widget/w1.jpg";
-import w2 from "@/assets/projects/widget/w2.jpg";
-import api1 from "@/assets/projects/epitoni/api1.png";
-import api2 from "@/assets/projects/epitoni/api2.jpg";
+import profile from "@/assets/profile-pic.avif";
+import chatss from "@/assets/projects/chat/chatss.avif";
+import ss from "@/assets/projects/music/ss.avif";
+import w1 from "@/assets/projects/widget/w1.avif";
+import w2 from "@/assets/projects/widget/w2.avif";
+import api1 from "@/assets/projects/epitoni/api1.avif";
+import api2 from "@/assets/projects/epitoni/api2.avif";
 import api3 from "@/assets/projects/epitoni/api3.png";
 import api4 from "@/assets/projects/epitoni/api4.jpg";
 import businessInfo from "@/assets/projects/epitoni/businessInfo.png";
@@ -25,7 +25,7 @@ import notificationLog from "@/assets/projects/epitoni/notificationLog.jpg";
 import notify from "@/assets/projects/epitoni/notify.png";
 import subMenu from "@/assets/projects/epitoni/subMenu.png";
 import tag from "@/assets/projects/epitoni/tag.png";
-import login from "@/assets/projects/epitoni/login.png";
+import login from "@/assets/projects/epitoni/login.avif";
 
 export{
     login,

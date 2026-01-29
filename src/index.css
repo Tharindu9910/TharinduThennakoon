@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 @theme {
   --color-background: #0f1418;
@@ -21,6 +22,7 @@
 
   --color-highlight: #f5a623;
   --color-surface: #1a2329;
+  --font-poppins: "Poppins", sans-serif;
 }
 
 @layer base {
@@ -41,6 +43,7 @@
   .font-serif {
     font-family: "Playfair Display", serif;
   }
+
 }
 
 @layer components {
@@ -127,6 +130,8 @@
 
   .animate-marquee {
     animation: marquee 30s linear infinite;
+    will-change: transform;
+    display: flex;
   }
 
   .animation-delay-100 {
