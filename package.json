@@ -1,5 +1,5 @@
 {
-  "name": "Tharindu-Thennakoon",
+  "name": "TharinduThennakoon",
   "homepage": "https://Tharindu9910.github.io/TharinduThennakoon/",
   "private": true,
   "version": "0.0.0",
@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy":"npm run build",
-    "deploy":"gh-pages -d dist"
+    "deploy":"gh-pages -d dist",
+    "sitemap": "sitemap-generator https://www.tharindu.space"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
