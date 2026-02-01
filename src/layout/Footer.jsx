@@ -58,7 +58,9 @@ export const Footer = () => {
              <a href="https://medium.com/@tharindutkt" target="_blank" className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"><img
                   src={medium}
                   alt="medium"
-                  className='w-[20px] object-contain'
+                  loading="lazy"
+                  decoding="async"
+                  className='w-[20px] aspect-square object-contain'
                 /></a>
           </div>
         </div>

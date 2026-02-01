@@ -5,18 +5,18 @@ import { memo } from 'react';
 
 const ProjectBlock = memo(({
   title,
-  tagline="", 
-  description ,
-  screenshots ,
+  tagline = "",
+  description,
+  screenshots,
   technologies,
-  highlights=[],
+  highlights = [],
   metrics = [
     { label: "Active Users", value: "10K+" },
     { label: "Uptime", value: "99.9%" },
     { label: "API Calls/Day", value: "2M+" }
   ],
   githubUrl = "",
-  liveUrl =""
+  liveUrl = ""
 }) => {
 
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
@@ -130,8 +130,8 @@ const ProjectBlock = memo(({
                   key={idx}
                   onClick={() => setFullscreenIndex(idx)}
                   className={`relative w-20 h-14 rounded overflow-hidden transition-all duration-200 ${idx === fullscreenIndex
-                      ? 'ring-2 ring-white scale-110'
-                      : 'opacity-60 hover:opacity-100'
+                    ? 'ring-2 ring-white scale-110'
+                    : 'opacity-60 hover:opacity-100'
                     }`}
                 >
                   <img
@@ -149,7 +149,13 @@ const ProjectBlock = memo(({
 
       {/* Main Container */}
       <div
-        className="relative rounded-2xl shadow-2xl overflow-hidden glass border border-primary/30 hover:border-primary/50  transition-all duration-500 hover:shadow-3xl"
+        className="relative rounded-2xl overflow-hidden
+        border border-primary/30
+        transition-[transform,opacity,border-color] duration-300
+        md:glass
+        md:hover:border-primary/50
+        md:hover:shadow-xl
+        will-change-transform"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -159,12 +165,14 @@ const ProjectBlock = memo(({
           <div className="relative  p-8 flex items-center justify-center">
             <div className="relative w-full">
               {/* Screenshot Display */}
-              <div className="relative rounded-lg overflow-hidden shadow-2xl bg-white cursor-pointer group"
+              <div className="relative rounded-lg overflow-hidden bg-white cursor-pointer group"
                 onClick={() => openFullscreen(currentScreenshot)}>
                 <img
                   src={screenshots[currentScreenshot]}
                   alt={`${title} screenshot ${currentScreenshot + 1}`}
-                  className="w-full h-auto object-cover transition-opacity duration-300"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-opacity duration-300"
                 />
 
                 {/* Overlay on hover */}
@@ -203,8 +211,8 @@ const ProjectBlock = memo(({
                       key={idx}
                       onClick={() => setCurrentScreenshot(idx)}
                       className={`h-2 rounded-full transition-all duration-300 ${idx === currentScreenshot
-                          ? 'w-8 bg-blue-600'
-                          : 'w-2 bg-gray-300 hover:bg-gray-400'
+                        ? 'w-8 bg-blue-600'
+                        : 'w-2 bg-gray-300 hover:bg-gray-400'
                         }`}
                       aria-label={`Go to screenshot ${idx + 1}`}
                     />

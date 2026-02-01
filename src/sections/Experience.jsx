@@ -14,7 +14,7 @@ const experiences = [
     company: "E-Bridge Solutions PVT Limited",
     description:
       "Built Epitoni, an AI-powered SaaS platform, from the ground up and owned core product features; collaborated with designers to deliver UX-driven UI improvements.",
-    technologies: ["React.js","Redux", "Python", "Neo4j", "Firestore", "GCP"],
+    technologies: ["React.js", "Redux", "Python", "Neo4j", "Firestore", "GCP"],
     current: false,
   },
   {
@@ -87,14 +87,19 @@ export const Experience = () => {
 
                 {/* Content */}
                 <div
-                  className={`pl-8 md:pl-0 ${
-                    idx % 2 === 0
+                  className={`pl-8 md:pl-0 ${idx % 2 === 0
                       ? "md:pr-16 md:text-right"
                       : "md:col-start-2 md:pl-16"
-                  }`}
+                    }`}
                 >
                   <div
-                    className={`glass p-6 rounded-2xl border border-primary/30 hover:border-primary/50 transition-all duration-500`}
+                    className={`p-6 rounded-2xl
+                    border border-primary/30
+                    transition-[border-color,transform,opacity] duration-300
+                    bg-white/5
+                    md:glass
+                    md:hover:border-primary/50
+                    will-change-transform`}
                   >
                     <span className="text-sm text-primary font-medium">
                       {exp.period}
@@ -105,9 +110,8 @@ export const Experience = () => {
                       {exp.description}
                     </p>
                     <div
-                      className={`flex flex-wrap gap-2 mt-4 ${
-                        idx % 2 === 0 ? "md:justify-end" : ""
-                      }`}
+                      className={`flex flex-wrap gap-2 mt-4 ${idx % 2 === 0 ? "md:justify-end" : ""
+                        }`}
                     >
                       {exp.technologies.map((tech, techIdx) => (
                         <span
