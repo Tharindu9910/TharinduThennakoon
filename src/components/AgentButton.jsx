@@ -78,9 +78,9 @@ const AgentButton = () => {
 
         try {
             const response = await sendMessage(formattedMsg);
-            console.log(response)
-            console.log(response.answer)
-            console.log(response.actions)
+            // console.log(response)
+            // console.log(response.answer)
+            // console.log(response.actions)
             // if (response.actions != []){
             //     setActions(response.actions)
             // } 
