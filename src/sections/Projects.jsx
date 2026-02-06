@@ -2,6 +2,7 @@ import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 import { ExternalLink,ArrowUpRight, Github , ChevronLeft, ChevronRight, Zap, Shield, Globe, Code } from 'lucide-react';
 import ProjectBlock from "./projects/ProjectBlock";
 import { api1, api2, api3, api4, businessInfo, businessList, chatss, dashboard1, dashboard2, edit, followers, getNotifiedAction, home, login, notificationLog, ss, tag, w1, w2 } from "../assets/images";
+import React, { Suspense } from 'react';
 
 const projects = [
   {
@@ -166,7 +167,7 @@ const myProjects = [
     liveUrl : "",
   }
 ];
-
+const MyComponent = React.lazy(() => import('./projects/ProjectBlock'));
 export const Projects = () => {
   return (
     <section id="projects" className="pt-14 relative overflow-hidden">
@@ -191,7 +192,9 @@ export const Projects = () => {
           </p>
         </div>
         {myProjects.map((project, idx) => (
-            <ProjectBlock key={idx} {...project} />
+           <Suspense fallback={<div>Loading...</div>}>
+            <MyComponent key={idx} {...project} />
+            </Suspense>
           ))}
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-8">

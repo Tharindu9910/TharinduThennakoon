@@ -7,6 +7,7 @@ import { Testimonials } from "@/sections/Testimonials";
 import { Contact } from "@/sections/Contact";
 import { Footer } from "./layout/Footer";
 import { Education } from "./sections/Education";
+import AgentButton from "./components/AgentButton";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Education/>
         {/* <Testimonials /> */}
         <Contact />
+        <AgentButton/>
       </main>
       <Footer />
     </div>
