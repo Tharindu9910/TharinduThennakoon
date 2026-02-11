@@ -26,7 +26,7 @@ import notify from "@/assets/projects/epitoni/notify.png";
 import subMenu from "@/assets/projects/epitoni/subMenu.png";
 import tag from "@/assets/projects/epitoni/tag.png";
 import login from "@/assets/projects/epitoni/login.avif";
-import myagent from "@/assets/my-agent.svg";
+import myagent from "@/assets/my-agent-1.svg";
 
 export{
     login,

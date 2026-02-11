@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRef } from 'react';
 import { useState } from 'react';
 import {
@@ -15,6 +15,11 @@ import {
 import { sendMessage } from './api';
 import DirectVoiceToText from './DirectVoiceToText';
 import { myagent } from '../assets/images';
+import VoiceText from './VoiceText';
+import axios from 'axios';
+
+const DEEPGRAM_API_KEY = '6577ca6f08de8db8f1623509f27bb61c78010ad7';
+const DEEPGRAM_URL = "https://api.deepgram.com/v1/speak?model=aura-2-arcas-en"
 
 const AgentButton = () => {
     const [open, setOpen] = useState(false);
@@ -28,9 +33,12 @@ const AgentButton = () => {
         { text: `Hi there! I'm Tharindu, What would you like to know about me?`, sender: 'bot', msgId: 1, actions: [] }
     ]);
     const [isRecording, setIsRecording] = useState(false);
+    const [textState, setTextState] = useState("");
+    const [micStatus, setMicStatus] = useState("idle");
+
     const messagesEndRef = useRef(null);
-    const quickReplies = ['Tell me about your backend experience', 'What projects have you built recently?', 'What technologies do you specialize in?'];
-    
+    const quickReplies = ['Can I get your CV?',"What technologies do you specialize in?"];
+
     const getFileIcon = (type) => {
         if (type.startsWith('image/')) {
             return (
@@ -65,12 +73,49 @@ const AgentButton = () => {
         }
         return <File className="w-4 h-4" />;
     };
+   
+   const handleMessageSend = async () => {
+    setLoading(true);
+    if (!message.trim()) return;
+    const formattedMsg = message.trim();
+    setMessage('');
+    setMessageList((prevMessages) => [
+        ...prevMessages,
+        { text: formattedMsg, sender: 'me', msgId: prevMessages.length + 1 }
+    ]);
 
-    const handleMessageSend = async () => {
+    try {
+        const response = await sendMessage(formattedMsg);
+        // console.log(response)
+        // console.log(response.answer)
+        // console.log(response.actions)
+        // if (response.actions != []){
+        //     setActions(response.actions)
+        // } 
+        setLoading(false);
+        setMessageList((prevMessages) => [
+            ...prevMessages,
+            { text: response.answer, sender: 'bot', msgId: prevMessages.length + 1, actions: response.actions }
+        ]);
+
+    } catch (err) {
+        setMessageList((prevMessages) => [
+            ...prevMessages,
+            { text: err.message, sender: 'bot', msgId: prevMessages.length + 1 }
+        ]);
+    }
+};
+
+const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+        handleMessageSend();
+    }
+};
+const handleTextStateSend = async () => {
         setLoading(true);
-        if (!message.trim()) return;
-        const formattedMsg = message.trim();
-        setMessage('');
+        if (!textState.trim()) return;
+        const formattedMsg = textState.trim();
+        setTextState('');
         setMessageList((prevMessages) => [
             ...prevMessages,
             { text: formattedMsg, sender: 'me', msgId: prevMessages.length + 1 }
@@ -78,12 +123,7 @@ const AgentButton = () => {
 
         try {
             const response = await sendMessage(formattedMsg);
-            // console.log(response)
-            // console.log(response.answer)
-            // console.log(response.actions)
-            // if (response.actions != []){
-            //     setActions(response.actions)
-            // } 
+            await handleSend(response)
             setLoading(false);
             setMessageList((prevMessages) => [
                 ...prevMessages,
@@ -98,12 +138,43 @@ const AgentButton = () => {
         }
     };
 
-    const handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
-            handleMessageSend();
-        }
-    };
 
+  const handleSend = async (response) => {
+  
+          try {
+              const res = await axios.post(
+                  DEEPGRAM_URL,
+                  { text: response.answer }, // Deepgram expects a JSON body with a 'text' field
+                  {
+                      headers: {
+                          'Authorization': `Token ${DEEPGRAM_API_KEY}`,
+                          'Content-Type': 'application/json',
+                      },
+                      responseType: 'blob', // Crucial for receiving audio/binary data
+                      timeout: 30000,
+                  }
+              );
+  
+              // 1. Create a URL for the blob data
+              const audioBlob = new Blob([res.data], { type: 'audio/mpeg' });
+              const audioUrl = URL.createObjectURL(audioBlob);
+  
+              // 2. Play the audio
+              const audio = new Audio(audioUrl);
+              audio.play();
+  
+              // 3. Clean up the URL object memory later
+              audio.onended = () => URL.revokeObjectURL(audioUrl);
+  
+          } catch (error) {
+              if (error.response) {
+                  // The request was made and the server responded with a status code
+                  console.error(`Deepgram Error: ${error.response.status}`, error.response.data);
+              } else {
+                  console.error("Network or Setup Error:", error.message);
+              }
+          }
+      };
     return (
         <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end">
             {/* Chat Portal */}
@@ -260,7 +331,7 @@ const AgentButton = () => {
                         )}
 
                         {/* Quick Replies */}
-                        {/* {messageList.length === 1 && !loading && (
+                        {messageList.length === 1 && !loading && (
                             <div className="flex flex-wrap gap-2 mt-2 animate-in fade-in duration-500 delay-300">
                                 {quickReplies.map((reply, idx) => (
                                     <button
@@ -279,7 +350,7 @@ const AgentButton = () => {
                                     </button>
                                 ))}
                             </div>
-                        )} */}
+                        )}
 
                         <div ref={messagesEndRef} />
                     </div>
@@ -289,7 +360,7 @@ const AgentButton = () => {
                         className="p-4 bg-white/95 backdrop-blur-lg border-t border-gray-200">
 
                         <div className="flex items-center justify-end gap-2">
-                            <button4
+                            <button
                                 type="button"
                                 onClick={() => setIsRecording(!isRecording)}
                                 className={`
@@ -300,16 +371,27 @@ const AgentButton = () => {
                                 `}
                                 aria-label={isRecording ? "Stop recording" : "Start recording"}
                             >
-                                <Mic className={`w-5 h-5 ${isRecording ? "" : ""}`} />
+                                {micStatus === "connecting"
+                                    ?  <div className="bars">
+                                    <span></span><span></span><span></span>
+                                  </div>
+                                    : isRecording
+                                        ?<><Mic className={`w-5 h-5 ${isRecording ? "" : ""}`} />
+                                         <span className="absolute top-1 right-1 flex h-2 w-2">
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-400"></span>
+                                        </span></>
+                                        : <Mic className={`w-5 h-5 ${isRecording ? "" : ""}`} />}
+
 
                                 {/* Optional: A small red dot indicator */}
-                                {isRecording && (
+                                {/* {isRecording && (
                                     <span className="absolute top-1 right-1 flex h-2 w-2">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2 w-2 bg-red-400"></span>
                                     </span>
-                                )}
-                            </button4>
+                                )} */}
+                            </button>
 
 
                             <input
@@ -319,28 +401,42 @@ const AgentButton = () => {
                                 accept="image/*,.pdf,.doc,.docx,.txt"
                             />
                             <div>
-                                {/* <DirectVoiceToText /> */}
+                                <VoiceText setText={setTextState} isRecording={isRecording} onStatusChange={setMicStatus} />
+                                {/* <DirectVoiceToText/> */}
                             </div>
                             <div className="flex-1 relative">
-                                <input
-                                    type="text"
-                                    placeholder="Type your message..."
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    onKeyDown={handleKeyDown}
-                                    style={{
-                                        border: '1px solid #d1d5db',
-                                        borderRadius: '1rem',
-                                        outline: 'none',
-                                        boxSizing: 'border-box'
-                                    }}
-                                    className="w-full rounded-xl px-4 py-2 pr-4 text-gray-600 border-[1px] border-gray-300 focus:outline-none focus:ring-1 focus:ring-color1 focus:border-transparent bg-white shadow-sm transition-all duration-200 text-sm placeholder:text-gray-400"
-                                />
+                                {isRecording ?
+                                    <input type="text"
+                                        placeholder="Listening..."
+                                        value={textState}
+                                        className="w-full rounded-xl px-4 py-2 pr-4 text-gray-600 border-[1px] border-gray-300 focus:outline-none focus:ring-1 focus:ring-color1 focus:border-transparent bg-gray-200 shadow-sm transition-all duration-200 text-sm placeholder:text-gray-400"
+                                    />
+
+                                    : <input
+                                        type="text"
+                                        placeholder="Type your message..."
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
+                                        onKeyDown={handleKeyDown}
+                                        style={{
+                                            border: '1px solid #d1d5db',
+                                            borderRadius: '1rem',
+                                            outline: 'none',
+                                            boxSizing: 'border-box'
+                                        }}
+                                        className="w-full rounded-xl px-4 py-2 pr-4 text-gray-600 border-[1px] border-gray-300 focus:outline-none focus:ring-1 focus:ring-color1 focus:border-transparent bg-white shadow-sm transition-all duration-200 text-sm placeholder:text-gray-400"
+                                    />}
                             </div>
 
                             <button
                                 type="button"
-                                onClick={handleMessageSend}
+                                onClick={()=>{
+                                    if (textState ===""){
+                                        handleMessageSend()
+                                        
+                                    }else{
+                                        handleTextStateSend()
+                                    } }}
                                 // disabled={!message.trim() && attachedFiles.length === 0}
 
                                 className="bg-color1 text-white rounded-2xl p-3 hover:from-blue-700 hover:to-blue-900 transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"

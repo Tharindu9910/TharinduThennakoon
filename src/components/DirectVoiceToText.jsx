@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { sendMessage } from './api';
 // const apiKey = '2f525e547b10f4d1aeaa15debe498462293976d4';
-const DEEPGRAM_API_KEY = '';
+const DEEPGRAM_API_KEY = '6577ca6f08de8db8f1623509f27bb61c78010ad7';
 const DEEPGRAM_URL = "https://api.deepgram.com/v1/speak?model=aura-2-thalia-en"
 const DirectVoiceToText = () => {
     const [transcript, setTranscript] = useState('');
@@ -85,10 +85,10 @@ const DirectVoiceToText = () => {
     //     }
     // }
 
-    const handleSend = async () => {
+    const handleSend = async (response) => {
 
         try {
-            const response = await axios.post(
+            const res = await axios.post(
                 DEEPGRAM_URL,
                 { text: response.answer }, // Deepgram expects a JSON body with a 'text' field
                 {
@@ -102,7 +102,7 @@ const DirectVoiceToText = () => {
             );
 
             // 1. Create a URL for the blob data
-            const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
+            const audioBlob = new Blob([res.data], { type: 'audio/mpeg' });
             const audioUrl = URL.createObjectURL(audioBlob);
 
             // 2. Play the audio
