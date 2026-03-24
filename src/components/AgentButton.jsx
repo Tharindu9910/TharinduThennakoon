@@ -13,22 +13,17 @@ import {
     Mic
 } from 'lucide-react';
 import { sendMessage } from './api';
-import DirectVoiceToText from './DirectVoiceToText';
 import { myagent } from '../assets/images';
 import VoiceText from './VoiceText';
 import axios from 'axios';
 
-const DEEPGRAM_API_KEY = '6577ca6f08de8db8f1623509f27bb61c78010ad7';
-const DEEPGRAM_URL = "https://api.deepgram.com/v1/speak?model=aura-2-arcas-en"
+const DEEPGRAM_API_KEY = import.meta.env.VITE_DEEPGRAM_API_KEY;
+const DEEPGRAM_URL = import.meta.env.VITE_DEEPGRAM_V_OUT_URL;
 
 const AgentButton = () => {
     const [open, setOpen] = useState(false);
-    const [token, setToken] = useState(null);
-    const [tempssid, setTempssid] = useState('');
     const [loading, setLoading] = useState(false);
-    const portalRef = useRef(null);
     const [message, setMessage] = useState('');
-    const [actions, setActions] = useState([]);
     const [messageList, setMessageList] = useState([
         { text: `Hi there! I'm Tharindu, What would you like to know about me?`, sender: 'bot', msgId: 1, actions: [] }
     ]);
@@ -39,41 +34,6 @@ const AgentButton = () => {
     const messagesEndRef = useRef(null);
     const quickReplies = ['Can I get your CV?',"What technologies do you specialize in?"];
 
-    const getFileIcon = (type) => {
-        if (type.startsWith('image/')) {
-            return (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <rect
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        rx="2"
-                        ry="2"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                    <circle
-                        cx="8.5"
-                        cy="8.5"
-                        r="1.5"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                    <polyline
-                        points="21 15 16 10 5 21"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            );
-        }
-        return <File className="w-4 h-4" />;
-    };
-   
    const handleMessageSend = async () => {
     setLoading(true);
     if (!message.trim()) return;

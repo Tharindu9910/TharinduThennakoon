@@ -167,110 +167,66 @@ const myProjects = [
     liveUrl : "",
   }
 ];
+
 const MyComponent = React.lazy(() => import('./projects/ProjectBlock'));
+
+const ProjectSkeleton = () => (
+  <div className="w-full max-w-6xl mx-auto mb-10 sm:mb-16 rounded-2xl border border-white/10 overflow-hidden animate-pulse">
+    <div className="flex flex-col md:grid md:grid-cols-2">
+      <div className="h-48 sm:h-64 md:h-auto bg-white/5 m-4 sm:m-6 md:m-8 rounded-xl" />
+      <div className="p-4 sm:p-6 md:p-8 flex flex-col gap-4">
+        <div className="h-8 bg-white/5 rounded-lg w-2/3" />
+        <div className="h-4 bg-white/5 rounded w-1/2" />
+        <div className="space-y-2">
+          <div className="h-3 bg-white/5 rounded w-full" />
+          <div className="h-3 bg-white/5 rounded w-5/6" />
+          <div className="h-3 bg-white/5 rounded w-4/6" />
+        </div>
+        <div className="flex gap-2 flex-wrap mt-2">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="h-6 w-16 bg-white/5 rounded-full" />
+          ))}
+        </div>
+        <div className="flex gap-2 mt-auto">
+          <div className="h-10 flex-1 bg-white/5 rounded-xl" />
+          <div className="h-10 w-24 bg-white/5 rounded-xl" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 export const Projects = () => {
   return (
-    <section id="projects" className="pt-14 relative overflow-hidden">
+    <section id="projects" className="pt-10 sm:pt-14 relative overflow-hidden">
       {/* Bg glows */}
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mx-auto max-w-3xl mb-16">
-          <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        {/* Section header */}
+        <div className="text-center mx-auto max-w-3xl mb-10 sm:mb-16">
+          <span className="text-secondary-foreground text-xs sm:text-sm font-medium tracking-wider uppercase animate-fade-in">
             Featured Work
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3 sm:mt-4 mb-4 sm:mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
             Projects that
             <span className="font-serif italic font-normal text-white">
               {" "}make an impact.
             </span>
           </h2>
-          <p className="text-muted-foreground animate-fade-in animation-delay-200">
+          <p className="text-sm sm:text-base text-muted-foreground animate-fade-in animation-delay-200 px-2 sm:px-0">
             A selection of my recent work, from complex web/mobile applications to
             innovative tools that solve real-world problems.
           </p>
         </div>
+
+        {/* Project list */}
         {myProjects.map((project, idx) => (
-           <Suspense fallback={<div>Loading...</div>}>
-            <MyComponent key={idx} {...project} />
-            </Suspense>
-          ))}
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-        
-          {/* {projects.map((project, idx) => (
-            <div
-              key={idx}
-              className="group glass rounded-2xl overflow-hidden animate-fade-in md:row-span-1"
-              style={{ animationDelay: `${(idx + 1) * 100}ms` }}
-            >
-       
-              <div className="relative overflow-hidden aspect-video">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div
-                  className="absolute inset-0 
-                bg-gradient-to-t from-card via-card/50
-                 to-transparent opacity-60"
-                />
-        
-                <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <a
-                    href={project.link}
-                    className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
-                  >
-                    <ArrowUpRight className="w-5 h-5" />
-                  </a>
-                  <a
-                    href={project.github}
-                    className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
-                  >
-                    <Github className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-
-              <div className="p-6 space-y-4">
-                <div className="flex items-start justify-between">
-                  <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-                  <ArrowUpRight
-                    className="w-5 h-5 
-                  text-muted-foreground group-hover:text-primary
-                   group-hover:translate-x-1 
-                   group-hover:-translate-y-1 transition-all"
-                  />
-                </div>
-                <p className="text-muted-foreground text-sm">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIdx) => (
-                    <span
-                      key={tagIdx}
-                      className="px-4 py-1.5 rounded-full bg-surface text-xs font-medium border border-border/50 text-muted-foreground hover:border-primary/50 hover:text-primary transition-all duration-300"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))} */}
-        </div>
-
-        {/* View All CTA */}
-        {/* <div className="text-center mt-12 animate-fade-in animation-delay-500">
-          <AnimatedBorderButton>
-            View All Projects
-            <ArrowUpRight className="w-5 h-5" />
-          </AnimatedBorderButton>
-        </div> */}
+          <Suspense key={idx} fallback={<ProjectSkeleton />}>
+            <MyComponent {...project} />
+          </Suspense>
+        ))}
       </div>
     </section>
   );

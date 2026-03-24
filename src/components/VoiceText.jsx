@@ -1,9 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
-import { sendMessage } from './api';
-// const apiKey = '2f525e547b10f4d1aeaa15debe498462293976d4';
-const DEEPGRAM_API_KEY = '2f525e547b10f4d1aeaa15debe498462293976d4';
-const DEEPGRAM_URL = "https://api.deepgram.com/v1/speak?model=aura-2-thalia-en"
+import React, { useRef, useEffect } from 'react';
+
+const DEEPGRAM_API_KEY = import.meta.env.VITE_DEEPGRAM_API_KEY;
 
 const VoiceText = ({ setText, isRecording = false, onStatusChange = () => { } }) => {
     const socketRef = useRef(null);
